@@ -22,15 +22,9 @@ public class keyActivity extends AppCompatActivity {
         recycleViewKeys = findViewById(R.id.rvkeys);
         recycleViewKeys.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        Key hi = new Key("Alpay", "asdnja");
-        Key hii = new Key("Metin", "asdnja");
-        Key hiii = new Key("Cem", "asdnja");
-        Key hiiii = new Key("Taha", "asdnja");
 
-        keyliste.add(hi);
-        keyliste.add(hii);
-        keyliste.add(hiii);
-        keyliste.add(hiiii);
+
+
 
         recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
 

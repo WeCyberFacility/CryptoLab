@@ -3,19 +3,20 @@ package com.qooplite.alpay.cryptolab;
 public class Key {
 
     private String name;
-    private String key;
+
     private int variable1;
     private int variable2;
-    private int variable3;
 
 
-    public Key(String name, String key) {
+    public Key(String name, int var1, int var2) {
 
         this.name = name;
-        this.key = key;
+        this.variable1 = var1;
+        this.variable2 = var2;
     }
 
-    public Key(){}
+    public Key() {
+    }
 
     public String getName() {
         return name;
@@ -25,13 +26,6 @@ public class Key {
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public int getVariable1() {
         return variable1;
@@ -49,11 +43,4 @@ public class Key {
         this.variable2 = variable2;
     }
 
-    public int getVariable3() {
-        return variable3;
-    }
-
-    public void setVariable3(int variable3) {
-        this.variable3 = variable3;
-    }
 }
