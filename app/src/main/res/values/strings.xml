@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CryptoLab</string>
+
+
+    <array name="Cryptoverfahren">
+
+        <item>Ceaser</item>
+        <item>Modulotransform</item>
+
+    </array>
+
+
+</resources>
