@@ -25,6 +25,7 @@ public class keyActivity extends AppCompatActivity {
     EditText nmbr1Eingabe;
     EditText nmbr2Eingabe;
     Button keyAddenBtn;
+    EditText nameEingabe;
 
 
     @Override
@@ -41,6 +42,7 @@ public class keyActivity extends AppCompatActivity {
         nmbr1Eingabe = keyhinzuefuegenDialog.findViewById(R.id.number1eingabe);
         nmbr2Eingabe = keyhinzuefuegenDialog.findViewById(R.id.number2eingabe);
         keyAddenBtn = keyhinzuefuegenDialog.findViewById(R.id.keyaddenbtn);
+        nameEingabe = keyhinzuefuegenDialog.findViewById(R.id.nameingabe);
 
 
 
