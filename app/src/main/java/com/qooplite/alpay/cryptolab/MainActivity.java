@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -109,15 +110,33 @@ MainActivity extends AppCompatActivity {
 
                 lockBtn.startAnimation(animation);
 
-                switch ( schluesselAuswahl.getSelectedItem().toString()) {
+                if (schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
 
-                    case "Modulotransform":
+                    Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
 
-                        ModVer();
-                        animation.cancel();
+                } else {
+                    int i = 0;
+
+                    while(schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false) {
+
+                        i++;
+                        continue;
+
+
+                    }
+
+                    Key gefundenerKey = loadSharedPreferencesLogList(getApplicationContext()).get(i);
+
+                    Toast.makeText(MainActivity.this, "The Key: " + gefundenerKey.getName() + "was used!", Toast.LENGTH_SHORT).show();
+
+                    ModVer(gefundenerKey.getVariable1(), gefundenerKey.getVariable2());
 
 
                 }
+
+
+
+
 
 
             }
@@ -132,15 +151,33 @@ MainActivity extends AppCompatActivity {
                 Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
                 unlockBtn.startAnimation(animation);
-                switch (schluesselAuswahl.getSelectedItem().toString()) {
 
-                    case "Modulotransform":
+                if(schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
+
+                    Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    int i = 0;
+
+                    while(schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false ) {
+
+                        i++;
+                        continue;
 
 
-                        ModEnt();
+                    }
+
+                    Key gefundenerKey = loadSharedPreferencesLogList(getApplicationContext()).get(i);
+
+                    Toast.makeText(MainActivity.this, "The Key: " + gefundenerKey.getName() + "was used!", Toast.LENGTH_SHORT).show();
+
+                    ModEnt(gefundenerKey.getVariable1(), gefundenerKey.getVariable2());
 
 
                 }
+
+
 
 
             }
@@ -199,7 +236,7 @@ MainActivity extends AppCompatActivity {
 
 
 
-    public void ModVer(){
+    public void ModVer(int variable1, int variable2){
         int count=0;
 
         String inputPW = eingabeText.getText().toString().trim();
@@ -237,10 +274,10 @@ MainActivity extends AppCompatActivity {
                 if (inputPW.charAt(i) == allChars.charAt(j)) {
 
                     if (i % 2 == 0) {
-                        hashedChars[i] = doubleAllChars.charAt(i + j + 8);
+                        hashedChars[i] = doubleAllChars.charAt(i + j + variable1);
                         break;
                     } else {
-                        hashedChars[i] = doubleAllChars.charAt(i + j + 4);
+                        hashedChars[i] = doubleAllChars.charAt(i + j + variable2);
                         break;
                     }
 
@@ -271,7 +308,7 @@ MainActivity extends AppCompatActivity {
 
 
 
-    public void ModEnt(){
+    public void ModEnt(int variable1, int variable2){
         int count=0;
 
         String PW = eingabeText.getText().toString().trim();
@@ -312,10 +349,10 @@ MainActivity extends AppCompatActivity {
                 if (PW.charAt(i) ==  reversedAll.charAt(j)) {
 
                     if (i % 2 == 0) {
-                        hashedChars[i] =reversedDoubleAll.charAt(i + j + 8);
+                        hashedChars[i] =reversedDoubleAll.charAt(i + j + variable1);
                         break;
                     } else {
-                        hashedChars[i] = reversedDoubleAll.charAt(i + j + 4);
+                        hashedChars[i] = reversedDoubleAll.charAt(i + j + variable2);
                         break;
                     }
 
