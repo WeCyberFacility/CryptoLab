@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyListHolder> {
+public class  KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyListHolder> {
 
 
     ArrayList<Key> data;
