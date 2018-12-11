@@ -40,6 +40,8 @@ public SharedPreferences.Editor prefEditor;
     EditText nmbr2Eingabe;
     Button keyAddenBtn;
     EditText nameEingabe;
+
+
     private String KEY = "myCryptoLabKEY";
 
 
@@ -98,6 +100,7 @@ public SharedPreferences.Editor prefEditor;
                 Key neu = new Key(nameEingabe.getText().toString(),Integer.parseInt(nmbr1Eingabe.getText().toString()),Integer.parseInt(nmbr2Eingabe.getText().toString()));
 
 
+
                 keyliste.add(neu);
 
                 saveSharedPreferencesLogList(getApplicationContext(), keyliste);
@@ -107,6 +110,7 @@ public SharedPreferences.Editor prefEditor;
 
                 Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
                 //Hier der Code um den Key bei shared Pref zu speichern:
+
 
 
 

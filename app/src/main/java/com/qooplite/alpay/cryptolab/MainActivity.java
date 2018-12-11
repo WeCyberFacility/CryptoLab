@@ -25,7 +25,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class
+public  class
 
 MainActivity extends AppCompatActivity {
 
@@ -151,10 +151,11 @@ MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spinnerUpdaten();
+    }
 
     public void spinnerUpdaten() {
 
