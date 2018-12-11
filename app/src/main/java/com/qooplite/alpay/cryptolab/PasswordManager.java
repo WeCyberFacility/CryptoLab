@@ -146,7 +146,7 @@ public class PasswordManager extends AppCompatActivity {
         if (json.isEmpty()) {
             passwordlisst = new ArrayList<Password>();
         } else {
-            Type type = new TypeToken<ArrayList<Key>>() {
+            Type type = new TypeToken<ArrayList<Password>>() {
             }.getType();
             passwordlisst = gson.fromJson(json, type);
         }
