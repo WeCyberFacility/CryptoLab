@@ -57,14 +57,8 @@ MainActivity extends AppCompatActivity {
         ausgabeLayout = findViewById(R.id.constraintLayoutout);
 
 
-        Spinner spinner = new Spinner(this);
-        ArrayAdapter<Key> spinnerArrayAdapter = new ArrayAdapter<Key>
-                (this, android.R.layout.simple_spinner_item, loadSharedPreferencesLogList(getApplicationContext())
-                        ); //selected item will look like a spinner set from XML
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerArrayAdapter);
 
+      spinnerUpdaten();
 
         clrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +155,28 @@ MainActivity extends AppCompatActivity {
 
 
 
+
+    public void spinnerUpdaten() {
+
+        String[] keys = new String[loadSharedPreferencesLogList(getApplicationContext()).size() + 1];
+
+        for(int t= 0; t<keys.length-1; t++) {
+
+            keys[t] = loadSharedPreferencesLogList(getApplicationContext()).get(t).getName();
+
+        }
+
+        keys[loadSharedPreferencesLogList(getApplicationContext()).size()] = "Custom";
+
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item, keys
+                ); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        schluesselAuswahl.setAdapter(spinnerArrayAdapter);
+
+    }
 
 
 
