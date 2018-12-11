@@ -234,13 +234,13 @@
 
             <ImageView
                 android:id="@+id/goToAccounts"
-                android:layout_width="39dp"
-                android:layout_height="36dp"
+                android:layout_width="51dp"
+                android:layout_height="47dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/copylogo" />
+                app:srcCompat="@mipmap/pswfolderlogo" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
