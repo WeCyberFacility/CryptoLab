@@ -51,7 +51,7 @@ MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce1);
 
                 eingabeText.startAnimation(animation);
                 outputText.startAnimation(animation);

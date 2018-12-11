@@ -81,7 +81,7 @@ public class  KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyList
 
                 keyListHolder.deleteLayout.setVisibility(View.INVISIBLE);
                 keyListHolder.normalLayout.setVisibility(View.VISIBLE);
-                Animation animation = AnimationUtils.loadAnimation(activity, R.anim.bounce);
+                Animation animation = AnimationUtils.loadAnimation(activity, R.anim.bounce1);
 
                 keyListHolder.normalLayout.startAnimation(animation);
                 return true;

@@ -49,6 +49,6 @@ public class Launch extends AppCompatActivity {
 
 
             }
-        }, 3500);
+        }, 2200);
     }
 }
