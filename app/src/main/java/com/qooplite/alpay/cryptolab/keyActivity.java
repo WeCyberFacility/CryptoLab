@@ -99,78 +99,66 @@ public SharedPreferences.Editor prefEditor;
             @Override
             public void onClick(View view) {
 
+                int number1 =Integer.parseInt(nmbr1Eingabe.getText().toString());
+                int number2 =Integer.parseInt(nmbr2Eingabe.getText().toString());
 
-               if(!nameEingabe.getText().toString().equals("")&&!nmbr1Eingabe.getText().toString().equals("")&&!nmbr2Eingabe.getText().toString().equals("")){
-
-                   Key neu = new Key(nameEingabe.getText().toString(),Integer.parseInt(nmbr1Eingabe.getText().toString()),Integer.parseInt(nmbr2Eingabe.getText().toString()));
-
-
-                   ArrayList<Key> check = loadSharedPreferencesLogList(getApplicationContext());
-
-                  boolean checkExist = false;
-                   for(int i =0;i< check.size();i++){
-
-                       if(neu.getName().equals(check.get(i).getName())){
-                          checkExist=true;
-                           break;
-                       }
-                       else{
-                         continue;
-                       }
-
-                   }
+              if(number1>10|| number2>10){
+                  ErrorOut.setText("*numbers above 10 are not allowed!");
+              }else {
 
 
+                  if (!nameEingabe.getText().toString().equals("") && !nmbr1Eingabe.getText().toString().equals("") && !nmbr2Eingabe.getText().toString().equals("")) {
 
-                   if(checkExist==false){
-
-                       keyliste.add(neu);
-
-                       saveSharedPreferencesLogList(getApplicationContext(), keyliste);
+                      Key neu = new Key(nameEingabe.getText().toString(), Integer.parseInt(nmbr1Eingabe.getText().toString()), Integer.parseInt(nmbr2Eingabe.getText().toString()));
 
 
-                       recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
+                      ArrayList<Key> check = loadSharedPreferencesLogList(getApplicationContext());
 
-                       Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
-                       keyhinzuefuegenDialog.dismiss();
-                       nameEingabe.setText("");
-                       nmbr1Eingabe.setText("");
-                       nmbr2Eingabe.setText("");
-                       //Hier der Code um den Key bei shared Pref zu speichern:
+                      boolean checkExist = false;
+                      for (int i = 0; i < check.size(); i++) {
 
+                          if (neu.getName().equals(check.get(i).getName())) {
+                              checkExist = true;
+                              break;
+                          } else {
+                              continue;
+                          }
 
-
-                   }else{
-                       Toast.makeText(keyActivity.this, "Key add failed!", Toast.LENGTH_SHORT).show();
-                       ErrorOut.setText("*"+neu.getName()+" already exists. Choose an other name!");
-                   }
+                      }
 
 
+                      if (checkExist == false) {
+
+                          keyliste.add(neu);
+
+                          saveSharedPreferencesLogList(getApplicationContext(), keyliste);
 
 
+                          recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
+
+                          Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
+                          keyhinzuefuegenDialog.dismiss();
+                          nameEingabe.setText("");
+                          nmbr1Eingabe.setText("");
+                          nmbr2Eingabe.setText("");
+                          ErrorOut.setText("");
+                          //Hier der Code um den Key bei shared Pref zu speichern:
 
 
+                      } else {
+                          Toast.makeText(keyActivity.this, "Key add failed!", Toast.LENGTH_SHORT).show();
+                          ErrorOut.setText("*" + neu.getName() + " already exists. Choose an other name!");
+                      }
 
 
-               }else{
-                   Toast.makeText(keyActivity.this, "Key culdnt be added!", Toast.LENGTH_SHORT).show();
-                   ErrorOut.setText("*Missing an input! ");
+                  } else {
+                      Toast.makeText(keyActivity.this, "Key culdnt be added!", Toast.LENGTH_SHORT).show();
+                      ErrorOut.setText("*Missing an input! ");
 
-               }
-
-
+                  }
 
 
-
-
-
-
-
-
-
-
-
-
+              }
             }
           });
 
