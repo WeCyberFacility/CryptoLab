@@ -2,6 +2,7 @@ package com.qooplite.alpay.cryptolab;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -50,7 +53,7 @@ public class  KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyList
 
                 keyListHolder.normalLayout.setVisibility(View.INVISIBLE);
                 keyListHolder.deleteLayout.setVisibility(View.VISIBLE);
-                Animation animation = AnimationUtils.loadAnimation(activity, R.anim.bounce);
+                Animation animation = AnimationUtils.loadAnimation(activity, R.anim.bounce1);
 
                 keyListHolder.deleteLayout.startAnimation(animation);
                 return true;
@@ -65,6 +68,8 @@ public class  KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyList
                 data.remove(i);
                 notifyItemRemoved(i);
                 notifyDataSetChanged();
+
+                saveSharedPreferencesLogList(activity, data);
 
                 keyListHolder.deleteLayout.setVisibility(View.INVISIBLE);
                 keyListHolder.normalLayout.setVisibility(View.VISIBLE);
@@ -97,6 +102,15 @@ public class  KeyListAdapter extends RecyclerView.Adapter<KeyListAdapter.KeyList
         return data.size();
     }
 
+
+    public static void saveSharedPreferencesLogList(Context context, ArrayList<Key> keylisteee) {
+        SharedPreferences mPrefs = context.getSharedPreferences("KeyListe", context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(keylisteee);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.commit();
+    }
 
     public class KeyListHolder extends RecyclerView.ViewHolder {
 

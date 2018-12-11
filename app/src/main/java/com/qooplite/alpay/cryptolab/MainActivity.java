@@ -1,17 +1,29 @@
 package com.qooplite.alpay.cryptolab;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class
 
@@ -44,6 +56,14 @@ MainActivity extends AppCompatActivity {
         eingabeLayout = findViewById(R.id.constraintLayoutout1);
         ausgabeLayout = findViewById(R.id.constraintLayoutout);
 
+
+        Spinner spinner = new Spinner(this);
+        ArrayAdapter<Key> spinnerArrayAdapter = new ArrayAdapter<Key>
+                (this, android.R.layout.simple_spinner_item, loadSharedPreferencesLogList(getApplicationContext())
+                        ); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerArrayAdapter);
 
 
         clrBtn.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +164,21 @@ MainActivity extends AppCompatActivity {
 
 
 
+    public static ArrayList<Key> loadSharedPreferencesLogList(Context context) {
+        ArrayList<Key> keylistee = new ArrayList<Key>();
+        SharedPreferences mPrefs = context.getSharedPreferences("KeyListe", context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("myJson", "");
+        if (json.isEmpty()) {
+            keylistee = new ArrayList<Key>();
+        } else {
+            Type type = new TypeToken<ArrayList<Key>>() {
+            }.getType();
+            keylistee = gson.fromJson(json, type);
+        }
 
+        return keylistee;
+    }
 
 
 
