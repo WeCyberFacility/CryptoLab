@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/hb">
+    android:background="@color/hb"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -134,6 +136,7 @@
                     android:ems="10"
                     android:fontFamily="casual"
                     android:hint="text to crypt ..."
+
                     android:inputType="textMultiLine"
                     android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -175,6 +178,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
+
                 android:fontFamily="sans-serif-condensed"
                 android:hint="var1"
                 android:inputType="number"
@@ -193,11 +197,39 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed"
                 android:hint="var1"
+
                 android:inputType="number"
                 android:textAlignment="center"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/schluesselauswahl" />
+
+            <ImageView
+                android:id="@+id/copylogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutout"
+                app:srcCompat="@mipmap/copylogo" />
+
+            <TextView
+                android:id="@+id/cpytxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="COPY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/copylogo" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

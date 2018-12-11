@@ -1,6 +1,7 @@
 package com.qooplite.alpay.cryptolab;
 
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +33,7 @@ public  class
 MainActivity extends AppCompatActivity {
 
 
+
     ImageView keyBtn;
     ImageView lockBtn;
     ImageView unlockBtn;
@@ -44,6 +45,7 @@ MainActivity extends AppCompatActivity {
     ConstraintLayout ausgabeLayout;
     EditText var1Txt;
     EditText var2Txt;
+    ImageView copyLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,47 @@ MainActivity extends AppCompatActivity {
         ausgabeLayout = findViewById(R.id.constraintLayoutout);
         var1Txt = findViewById(R.id.var1);
         var2Txt = findViewById(R.id.var2);
+        copyLogo = findViewById(R.id.copylogo);
 
 
-        spinnerUpdaten();
+
+
+      spinnerUpdaten();
+
+
+      copyLogo.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+              if(outputText.getText().toString().equals("")) {
+
+
+
+              } else {
+
+                  Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+
+                  copyLogo.startAnimation(animation);
+
+
+
+                  ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                  ClipData clip = ClipData.newPlainText("label", outputText.getText().toString());
+                  clipboard.setPrimaryClip(clip);
+
+                  Toast.makeText(MainActivity.this, "copied", Toast.LENGTH_SHORT).show();
+
+
+              }
+
+
+
+
+
+
+          }
+      });
+
 
         clrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +120,13 @@ MainActivity extends AppCompatActivity {
                 var2Txt.setText("");
 
 
+
+
+
             }
         });
+
+
 
 
         //On Click Listener für das Key Logo oben Rechts
@@ -95,6 +140,7 @@ MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, keyActivity.class));
 
 
+
             }
         });
 
@@ -106,23 +152,31 @@ MainActivity extends AppCompatActivity {
 
 
                 String eingabe = eingabeText.getText().toString().trim();
-                // String ausgabe = outputText.getText().toString().trim();
+               // String ausgabe = outputText.getText().toString().trim();
                 Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
                 lockBtn.startAnimation(animation);
 
                 if (schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
 
-                    Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
 
-                    if (var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
+
+                    if(var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
 
                         Toast.makeText(MainActivity.this, "please give two variables!", Toast.LENGTH_SHORT).show();
 
                     } else {
 
 
-                        ModVer(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+                        if(Integer.parseInt(var1Txt.getText().toString()) > 10 || Integer.parseInt(var2Txt.getText().toString()) > 10) {
+
+                            Toast.makeText(MainActivity.this, "please enter numbers up to 10", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            ModVer(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+                        }
+
+
 
                     }
 
@@ -130,7 +184,7 @@ MainActivity extends AppCompatActivity {
                 } else {
                     int i = 0;
 
-                    while (schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false) {
+                    while(schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false) {
 
                         i++;
                         continue;
@@ -148,6 +202,10 @@ MainActivity extends AppCompatActivity {
                 }
 
 
+
+
+
+
             }
         });
 
@@ -156,7 +214,7 @@ MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
+                if(schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
 
                     var1Txt.setVisibility(View.VISIBLE);
                     var2Txt.setVisibility(View.VISIBLE);
@@ -187,18 +245,24 @@ MainActivity extends AppCompatActivity {
 
                 unlockBtn.startAnimation(animation);
 
-                if (schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
+                if(schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
 
-                    Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
 
-                    if (var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
+
+                    if(var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
 
                         Toast.makeText(MainActivity.this, "please give two variables!", Toast.LENGTH_SHORT).show();
 
                     } else {
 
 
-                        ModEnt(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+                        if(Integer.parseInt(var1Txt.getText().toString()) > 10 || Integer.parseInt(var2Txt.getText().toString()) > 10) {
+
+                            Toast.makeText(MainActivity.this, "please enter numbers up to 10", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            ModEnt(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+                        }
 
                     }
 
@@ -206,9 +270,10 @@ MainActivity extends AppCompatActivity {
                 } else {
 
 
+
                     int i = 0;
 
-                    while (schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false) {
+                    while(schluesselAuswahl.getSelectedItem().toString().equals(loadSharedPreferencesLogList(getApplicationContext()).get(i).getName()) == false ) {
 
                         i++;
                         continue;
@@ -226,8 +291,11 @@ MainActivity extends AppCompatActivity {
                 }
 
 
+
+
             }
         });
+
 
 
 
@@ -243,7 +311,7 @@ MainActivity extends AppCompatActivity {
 
         String[] keys = new String[loadSharedPreferencesLogList(getApplicationContext()).size() + 1];
 
-        for (int t = 0; t < keys.length - 1; t++) {
+        for(int t= 0; t<keys.length-1; t++) {
 
             keys[t] = loadSharedPreferencesLogList(getApplicationContext()).get(t).getName();
 
@@ -260,6 +328,7 @@ MainActivity extends AppCompatActivity {
         schluesselAuswahl.setAdapter(spinnerArrayAdapter);
 
     }
+
 
 
     public static ArrayList<Key> loadSharedPreferencesLogList(Context context) {
@@ -279,8 +348,9 @@ MainActivity extends AppCompatActivity {
     }
 
 
-    public void ModVer(int variable1, int variable2) {
-        int count = 0;
+
+    public void ModVer(int variable1, int variable2){
+        int count=0;
 
         String inputPW = eingabeText.getText().toString().trim();
 
@@ -288,7 +358,7 @@ MainActivity extends AppCompatActivity {
 
         String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü";
 
-        String doubleAllChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü" +
+        String doubleAllChars= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü"
                 +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü"
@@ -309,7 +379,7 @@ MainActivity extends AppCompatActivity {
         char[] hashedChars = new char[inputPW.length()];
 
 
-        for (int i = 0; i < inputPW.length(); i++) {
+        for(int i =0;i<inputPW.length();i++) {
 
             for (int j = 0; j < allChars.length(); j++) {
 
@@ -339,14 +409,20 @@ MainActivity extends AppCompatActivity {
             }
         }
 
-        hashedPW = String.valueOf(hashedChars);
+        hashedPW= String.valueOf(hashedChars);
 
         outputText.setText(hashedPW);
     }
 
 
-    public void ModEnt(int variable1, int variable2) {
-        int count = 0;
+
+
+
+
+
+
+    public void ModEnt(int variable1, int variable2){
+        int count=0;
 
         String PW = eingabeText.getText().toString().trim();
 
@@ -356,7 +432,7 @@ MainActivity extends AppCompatActivity {
 
         String reversedAll = new StringBuilder(allChars).reverse().toString();
 
-        String doubleAllChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü" +
+        String doubleAllChars= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü"
                 +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-öäü"
@@ -378,15 +454,15 @@ MainActivity extends AppCompatActivity {
         char[] hashedChars = new char[PW.length()];
 
 
-        for (int i = 0; i < PW.length(); i++) {
+        for(int i =0;i<PW.length();i++) {
 
-            for (int j = 0; j < reversedAll.length(); j++) {
+            for (int j = 0; j <  reversedAll.length(); j++) {
 
 
-                if (PW.charAt(i) == reversedAll.charAt(j)) {
+                if (PW.charAt(i) ==  reversedAll.charAt(j)) {
 
                     if (i % 2 == 0) {
-                        hashedChars[i] = reversedDoubleAll.charAt(i + j + variable1);
+                        hashedChars[i] =reversedDoubleAll.charAt(i + j + variable1);
                         break;
                     } else {
                         hashedChars[i] = reversedDoubleAll.charAt(i + j + variable2);
@@ -408,7 +484,7 @@ MainActivity extends AppCompatActivity {
             }
         }
 
-        hashedPW = String.valueOf(hashedChars);
+        hashedPW= String.valueOf(hashedChars);
 
 
         outputText.setText(hashedPW);
@@ -417,7 +493,11 @@ MainActivity extends AppCompatActivity {
 
 
 
+
 }
+
+
+
 
 
 
