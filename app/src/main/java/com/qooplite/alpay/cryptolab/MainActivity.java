@@ -166,7 +166,8 @@ MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+                InputMethodManager IpM = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                IpM.hideSoftInputFromWindow(view.getWindowToken(),0);
 
                 String eingabe = eingabeText.getText().toString().trim();
                // String ausgabe = outputText.getText().toString().trim();
@@ -257,6 +258,10 @@ MainActivity extends AppCompatActivity {
         unlockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                InputMethodManager IpM = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                IpM.hideSoftInputFromWindow(view.getWindowToken(),0);
 
                 Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
