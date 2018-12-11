@@ -6,6 +6,7 @@ public class Password {
     private String name;
     private String password;
 
+
     public Password(String name, String password) {
 
         this.name = name;

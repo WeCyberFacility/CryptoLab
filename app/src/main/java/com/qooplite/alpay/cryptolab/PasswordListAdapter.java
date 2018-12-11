@@ -1,5 +1,7 @@
 package com.qooplite.alpay.cryptolab;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -59,6 +62,26 @@ public class PasswordListAdapter  extends RecyclerView.Adapter<PasswordListAdapt
             }
         });
 
+
+        passwordListHolder.normalLayoutpm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Animation animation = AnimationUtils.loadAnimation(activity, R.anim.rotate);
+
+                passwordListHolder.normalLayoutpm.startAnimation(animation);
+
+
+
+                ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", data.get(i).getPassword());
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(activity, "copied", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
         passwordListHolder.deleteLayoutpm.setOnClickListener(new View.OnClickListener() {
             @Override
