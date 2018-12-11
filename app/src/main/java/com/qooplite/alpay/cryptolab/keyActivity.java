@@ -1,6 +1,7 @@
 package com.qooplite.alpay.cryptolab;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -67,6 +73,7 @@ public SharedPreferences.Editor prefEditor;
         recycleViewKeys.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
+        keyliste = loadSharedPreferencesLogList(getApplicationContext());
 
 
 
@@ -91,10 +98,16 @@ public SharedPreferences.Editor prefEditor;
                 Key neu = new Key(nameEingabe.getText().toString(),Integer.parseInt(nmbr1Eingabe.getText().toString()),Integer.parseInt(nmbr2Eingabe.getText().toString()));
 
 
+                keyliste.add(neu);
+
+                saveSharedPreferencesLogList(getApplicationContext(), keyliste);
+
+
+                recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
 
                 Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
                 //Hier der Code um den Key bei shared Pref zu speichern:
-                saveKey(neu);
+
 
 
             }
@@ -103,10 +116,32 @@ public SharedPreferences.Editor prefEditor;
     }
 
 
-         public void saveKey(Key toAdd){
+
+    public static ArrayList<Key> loadSharedPreferencesLogList(Context context) {
+        ArrayList<Key> keylistee = new ArrayList<Key>();
+        SharedPreferences mPrefs = context.getSharedPreferences("KeyListe", context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("myJson", "");
+        if (json.isEmpty()) {
+            keylistee = new ArrayList<Key>();
+        } else {
+            Type type = new TypeToken<ArrayList<Key>>() {
+            }.getType();
+            keylistee = gson.fromJson(json, type);
+        }
+
+        return keylistee;
+    }
 
 
 
+    public static void saveSharedPreferencesLogList(Context context, ArrayList<Key> keylisteee) {
+        SharedPreferences mPrefs = context.getSharedPreferences("KeyListe", context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(keylisteee);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.commit();
+    }
 
-       }
 }

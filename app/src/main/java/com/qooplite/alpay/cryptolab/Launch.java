@@ -15,7 +15,7 @@ public class Launch extends AppCompatActivity {
 
     ImageView Key;
     ImageView text;
-    TextView sgn;
+
     Animation launchtop;
     Animation fromside;
     Handler handler;
@@ -26,7 +26,7 @@ public class Launch extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
         Key = findViewById(R.id.schluesselLogo);
         text = findViewById(R.id.textlLogo);
-        sgn = findViewById(R.id.sign);
+
 
         launchtop = AnimationUtils.loadAnimation(this, R.anim.bounce);
         fromside = AnimationUtils.loadAnimation(this, R.anim.fadein);
@@ -34,7 +34,7 @@ public class Launch extends AppCompatActivity {
 
         Key.setAnimation(launchtop);
         text.setAnimation(fromside);
-        sgn.setAnimation(fromside);
+
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -49,6 +49,6 @@ public class Launch extends AppCompatActivity {
 
 
             }
-        }, 4500);
+        }, 3500);
     }
 }
