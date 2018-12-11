@@ -2,6 +2,7 @@ package com.qooplite.alpay.cryptolab;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public SharedPreferences.Editor prefEditor;
     ArrayList<Key> keyliste = new ArrayList<>();
     Dialog keyhinzuefuegenDialog;
     ImageView addkeyBtn;
+    ImageView backbtn;
 
     //Dialog Komponente:
     EditText nmbr1Eingabe;
@@ -60,7 +62,7 @@ public SharedPreferences.Editor prefEditor;
 
 
 
-
+        backbtn = findViewById(R.id.backbtn);
         addkeyBtn = findViewById(R.id.addkeybtn);
         keyhinzuefuegenDialog = new Dialog(keyActivity.this);
         keyhinzuefuegenDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -82,6 +84,22 @@ public SharedPreferences.Editor prefEditor;
 
 
         recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
+
+
+       backbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(keyActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                finish();
+
+
+            }
+        });
+
+
 
 
         addkeyBtn.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +154,7 @@ public SharedPreferences.Editor prefEditor;
 
                           recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
 
-                          Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
+                          Toast.makeText(keyActivity.this, "Key added successfully!", Toast.LENGTH_SHORT).show();
                           keyhinzuefuegenDialog.dismiss();
                           nameEingabe.setText("");
                           nmbr1Eingabe.setText("");
@@ -152,7 +170,7 @@ public SharedPreferences.Editor prefEditor;
 
 
                   } else {
-                      Toast.makeText(keyActivity.this, "Key culdnt be added!", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(keyActivity.this, "Key add failed added!", Toast.LENGTH_SHORT).show();
                       ErrorOut.setText("*Missing an input! ");
 
                   }

@@ -1,5 +1,6 @@
 package com.qooplite.alpay.cryptolab;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +48,8 @@ MainActivity extends AppCompatActivity {
     EditText var1Txt;
     EditText var2Txt;
     ImageView copyLogo;
+    ImageView goToAccuntsbtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,7 @@ MainActivity extends AppCompatActivity {
         var1Txt = findViewById(R.id.var1);
         var2Txt = findViewById(R.id.var2);
         copyLogo = findViewById(R.id.copylogo);
-
+        goToAccuntsbtn  =findViewById(R.id.goToAccounts);
 
 
 
@@ -138,17 +142,30 @@ MainActivity extends AppCompatActivity {
 
                 keyBtn.startAnimation(animation);
                 startActivity(new Intent(MainActivity.this, keyActivity.class));
-
+               finish();
 
 
             }
         });
 
 
+
+        goToAccuntsbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PasswordManager.class));
+                finish();
+            }
+        });
+
+
+
+
         //On Click Listener für Lock
         lockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
 
                 String eingabe = eingabeText.getText().toString().trim();
@@ -170,7 +187,7 @@ MainActivity extends AppCompatActivity {
 
                         if(Integer.parseInt(var1Txt.getText().toString()) > 10 || Integer.parseInt(var2Txt.getText().toString()) > 10) {
 
-                            Toast.makeText(MainActivity.this, "please enter numbers up to 10", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "numbers above 10 are not allowed!", Toast.LENGTH_SHORT).show();
 
                         } else {
                             ModVer(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
@@ -258,7 +275,7 @@ MainActivity extends AppCompatActivity {
 
                         if(Integer.parseInt(var1Txt.getText().toString()) > 10 || Integer.parseInt(var2Txt.getText().toString()) > 10) {
 
-                            Toast.makeText(MainActivity.this, "please enter numbers up to 10", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "numbers above 10 are not allowed!", Toast.LENGTH_SHORT).show();
 
                         } else {
                             ModEnt(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
@@ -488,6 +505,11 @@ MainActivity extends AppCompatActivity {
 
 
         outputText.setText(hashedPW);
+    }
+
+    public void hideKeyboard(View v ){
+        InputMethodManager IpM = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        IpM.hideSoftInputFromWindow(v.getWindowToken(),0);
     }
 
 
