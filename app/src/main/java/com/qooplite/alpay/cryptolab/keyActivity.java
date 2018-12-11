@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
@@ -40,7 +41,8 @@ public SharedPreferences.Editor prefEditor;
     EditText nmbr2Eingabe;
     Button keyAddenBtn;
     EditText nameEingabe;
-
+    TextView ErrorOut;
+    int checkCounter =0 ;
 
     private String KEY = "myCryptoLabKEY";
 
@@ -68,7 +70,7 @@ public SharedPreferences.Editor prefEditor;
         nmbr2Eingabe = keyhinzuefuegenDialog.findViewById(R.id.number2eingabe);
         keyAddenBtn = keyhinzuefuegenDialog.findViewById(R.id.keyaddenbtn);
         nameEingabe = keyhinzuefuegenDialog.findViewById(R.id.nameingabe);
-
+        ErrorOut = keyhinzuefuegenDialog.findViewById(R.id.dialogError);
 
 
         recycleViewKeys = findViewById(R.id.rvkeys);
@@ -97,19 +99,74 @@ public SharedPreferences.Editor prefEditor;
             @Override
             public void onClick(View view) {
 
-                Key neu = new Key(nameEingabe.getText().toString(),Integer.parseInt(nmbr1Eingabe.getText().toString()),Integer.parseInt(nmbr2Eingabe.getText().toString()));
+
+               if(!nameEingabe.getText().toString().equals("")&&!nmbr1Eingabe.getText().toString().equals("")&&!nmbr2Eingabe.getText().toString().equals("")){
+
+                   Key neu = new Key(nameEingabe.getText().toString(),Integer.parseInt(nmbr1Eingabe.getText().toString()),Integer.parseInt(nmbr2Eingabe.getText().toString()));
+
+
+                   ArrayList<Key> check = loadSharedPreferencesLogList(getApplicationContext());
+
+                  boolean checkExist = false;
+                   for(int i =0;i< check.size();i++){
+
+                       if(neu.getName().equals(check.get(i).getName())){
+                          checkExist=true;
+                           break;
+                       }
+                       else{
+                         continue;
+                       }
+
+                   }
 
 
 
-                keyliste.add(neu);
+                   if(checkExist==false){
 
-                saveSharedPreferencesLogList(getApplicationContext(), keyliste);
+                       keyliste.add(neu);
+
+                       saveSharedPreferencesLogList(getApplicationContext(), keyliste);
 
 
-                recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
+                       recycleViewKeys.setAdapter(new KeyListAdapter(keyliste, getApplicationContext()));
 
-                Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
-                //Hier der Code um den Key bei shared Pref zu speichern:
+                       Toast.makeText(keyActivity.this, "Key addet successfully!", Toast.LENGTH_SHORT).show();
+                       keyhinzuefuegenDialog.dismiss();
+                       nameEingabe.setText("");
+                       nmbr1Eingabe.setText("");
+                       nmbr2Eingabe.setText("");
+                       //Hier der Code um den Key bei shared Pref zu speichern:
+
+
+
+                   }else{
+                       Toast.makeText(keyActivity.this, "Key add failed!", Toast.LENGTH_SHORT).show();
+                       ErrorOut.setText("*"+neu.getName()+" already exists. Choose an other name!");
+                   }
+
+
+
+
+
+
+
+
+               }else{
+                   Toast.makeText(keyActivity.this, "Key culdnt be added!", Toast.LENGTH_SHORT).show();
+                   ErrorOut.setText("*Missing an input! ");
+
+               }
+
+
+
+
+
+
+
+
+
+
 
 
 
