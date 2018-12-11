@@ -32,7 +32,7 @@ public class PasswordListAdapter  extends RecyclerView.Adapter<PasswordListAdapt
 
     @NonNull
     @Override
-    public PasswordListAdapter.PasswordListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public PasswordListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.passwordlistlayout, viewGroup, false);
@@ -41,7 +41,7 @@ public class PasswordListAdapter  extends RecyclerView.Adapter<PasswordListAdapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PasswordListAdapter.PasswordListHolder passwordListHolder, final int i) {
+    public void onBindViewHolder(@NonNull final PasswordListHolder passwordListHolder, final int i) {
 
         passwordListHolder.nameTvpm.setText(data.get(i).getName());
 
