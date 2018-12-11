@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,8 @@ MainActivity extends AppCompatActivity {
     Spinner schluesselAuswahl;
     ConstraintLayout eingabeLayout;
     ConstraintLayout ausgabeLayout;
+    EditText var1Txt;
+    EditText var2Txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ MainActivity extends AppCompatActivity {
         schluesselAuswahl = findViewById(R.id.schluesselauswahl);
         eingabeLayout = findViewById(R.id.constraintLayoutout1);
         ausgabeLayout = findViewById(R.id.constraintLayoutout);
+        var1Txt = findViewById(R.id.var1);
+        var2Txt = findViewById(R.id.var2);
 
 
 
@@ -72,6 +77,8 @@ MainActivity extends AppCompatActivity {
                 outputText.startAnimation(animation);
                 eingabeText.setText("");
                 outputText.setText("");
+                var1Txt.setText("");
+                var2Txt.setText("");
 
 
 
@@ -79,6 +86,7 @@ MainActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 
@@ -114,6 +122,18 @@ MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
 
+                    if(var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
+
+                        Toast.makeText(MainActivity.this, "please give two variables!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+
+                        ModVer(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+
+                    }
+
+
                 } else {
                     int i = 0;
 
@@ -143,6 +163,32 @@ MainActivity extends AppCompatActivity {
         });
 
 
+        schluesselAuswahl.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(schluesselAuswahl.getSelectedItem().toString().equals("Custom")) {
+
+                    var1Txt.setVisibility(View.VISIBLE);
+                    var2Txt.setVisibility(View.VISIBLE);
+
+                } else {
+
+
+                    var1Txt.setVisibility(View.INVISIBLE);
+                    var2Txt.setVisibility(View.INVISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         //On Click Listener für Unlock
         unlockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +202,22 @@ MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this, "Custom Mode choosen", Toast.LENGTH_SHORT).show();
 
+                    if(var1Txt.getText().toString().equals("") || var2Txt.getText().toString().equals("")) {
+
+                        Toast.makeText(MainActivity.this, "please give two variables!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+
+
+                        ModEnt(Integer.parseInt(var1Txt.getText().toString()), Integer.parseInt(var2Txt.getText().toString()));
+
+                    }
+
+
                 } else {
+
+
 
                     int i = 0;
 
