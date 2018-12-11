@@ -1,14 +1,18 @@
 package com.qooplite.alpay.cryptolab;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,6 +49,7 @@ public SharedPreferences.Editor prefEditor;
     EditText nameEingabe;
     TextView ErrorOut;
     int checkCounter =0 ;
+    int backButtonTabs =0;
 
     private String KEY = "myCryptoLabKEY";
 
@@ -117,12 +122,23 @@ public SharedPreferences.Editor prefEditor;
             @Override
             public void onClick(View view) {
 
-                int number1 =Integer.parseInt(nmbr1Eingabe.getText().toString());
-                int number2 =Integer.parseInt(nmbr2Eingabe.getText().toString());
+             boolean allOk = false;
+              if(!nmbr1Eingabe.getText().toString().equals("")&&!nmbr2Eingabe.getText().toString().equals("")) {
 
-              if(number1>10|| number2>10){
-                  ErrorOut.setText("*numbers above 10 are not allowed!");
-              }else {
+
+                  int number1 = Integer.parseInt(nmbr1Eingabe.getText().toString());
+                  int number2 = Integer.parseInt(nmbr2Eingabe.getText().toString());
+
+                  if (number1 > 10 || number2 > 10) {
+                      ErrorOut.setText("*numbers above 10 are not allowed!");
+                      return;
+                  } else {
+                      allOk = true;
+                  }
+              }else{
+                  ErrorOut.setText("*Missing an input! ");
+              }
+
 
 
                   if (!nameEingabe.getText().toString().equals("") && !nmbr1Eingabe.getText().toString().equals("") && !nmbr2Eingabe.getText().toString().equals("")) {
@@ -170,13 +186,16 @@ public SharedPreferences.Editor prefEditor;
 
 
                   } else {
+
+
+
                       Toast.makeText(keyActivity.this, "Key add failed added!", Toast.LENGTH_SHORT).show();
                       ErrorOut.setText("*Missing an input! ");
 
                   }
 
 
-              }
+
             }
           });
 
@@ -210,5 +229,68 @@ public SharedPreferences.Editor prefEditor;
         prefsEditor.putString("myJson", json);
         prefsEditor.commit();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            backButtonTabs++;
+
+
+            if (backButtonTabs == 2) {
+
+                backButtonTabs = 0;
+
+                finish();
+                System.exit(0);
+
+
+                return true;
+            }
+
+
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backButtonTabs--;
+
+                    Intent intent = new Intent(keyActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                    finish();
+
+
+                }
+            }, 350);
+
+
+            return true;
+
+        }
+
+        return super.onKeyDown(keyCode, event);
+
+
+
+    }
+
+
+
+    public void hideKeyboard(View v ){
+        InputMethodManager IpM = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        IpM.hideSoftInputFromWindow(v.getWindowToken(),0);
+    }
+
+
+
+
+
+
+
 
 }
