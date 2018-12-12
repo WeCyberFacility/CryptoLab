@@ -140,6 +140,8 @@ public class PasswordManager extends AppCompatActivity {
                     recycleViewPasswords.setAdapter(new PasswordListAdapter(passwordListe, getApplicationContext()));
 
 
+                    PasshinzuefuegenDialog.dismiss();
+
                 }
             }
         });
