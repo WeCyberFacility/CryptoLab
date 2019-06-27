@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -66,7 +67,7 @@ public class PasswordManager extends AppCompatActivity {
 
 
 
-        addPswBtn = findViewById(R.id.addpswbtn);
+        addPswBtn = (ImageView) findViewById(R.id.addpswbtn);
         PasshinzuefuegenDialog = new Dialog(PasswordManager.this);
         PasshinzuefuegenDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         PasshinzuefuegenDialog.setContentView(R.layout.passwordhinzuegfuegendialog);
@@ -78,7 +79,7 @@ public class PasswordManager extends AppCompatActivity {
         ErrorOutPM = PasshinzuefuegenDialog.findViewById(R.id.dialogErrorpm);
 
 
-        recycleViewPasswords = findViewById(R.id.rvpasswords);
+        recycleViewPasswords = (RecyclerView) findViewById(R.id.rvpasswords);
         recycleViewPasswords.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         spinnerUpdaten();

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qooplite.alpay.cryptolab">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logolaunchersquare"
@@ -9,6 +11,7 @@
         android:roundIcon="@mipmap/logolauncher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EncryptionWahl"></activity>
         <activity android:name=".Launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +21,14 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".PasswordManager" />
-
         <activity android:name=".keyActivity" />
 
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7177574010293341~7273031738" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="hideKeyboard">
@@ -47,12 +47,12 @@
                 android:id="@+id/lockbtn"
                 android:layout_width="57dp"
                 android:layout_height="53dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/schluesselauswahl"
-                app:layout_constraintTop_toBottomOf="@+id/clrbtn"
+                app:layout_constraintTop_toTopOf="@+id/schluesselauswahl"
                 app:srcCompat="@mipmap/rlocked" />
 
             <ImageView
@@ -65,22 +65,35 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/key" />
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="monospace"
+                android:text="encryption algorithm"
+                app:layout_constraintEnd_toStartOf="@+id/lockbtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clrbtn" />
+
             <Spinner
                 android:id="@+id/schluesselauswahl"
                 android:layout_width="130dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="32dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
 
+                android:layout_marginEnd="32dp"
                 android:background="@drawable/roundedbuttonweis"
                 android:entries="@array/Cryptoverfahren"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toStartOf="@+id/lockbtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clrbtn" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutout"
                 android:layout_width="301dp"
                 android:layout_height="wrap_content"
@@ -113,9 +126,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutout1"
                 android:layout_width="299dp"
                 android:layout_height="141dp"
@@ -146,7 +159,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/cryptlogo"
@@ -170,6 +183,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/unlockbtn"
                 app:srcCompat="@mipmap/next" />
+
+            <EditText
+                android:id="@+id/keyeingabetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="key"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/unlockbtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schluesselauswahl" />
 
             <EditText
                 android:id="@+id/var1"
@@ -242,7 +270,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/pswfolder" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

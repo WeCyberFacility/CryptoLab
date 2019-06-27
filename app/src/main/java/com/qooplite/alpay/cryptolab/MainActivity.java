@@ -6,9 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,16 +21,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public  class
-
-MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
 
 
@@ -49,6 +51,7 @@ MainActivity extends AppCompatActivity {
     EditText var2Txt;
     ImageView copyLogo;
     ImageView goToAccuntsbtn;
+    private InterstitialAd mInterstitialAd;
 
 
     @Override
@@ -56,19 +59,35 @@ MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        keyBtn = findViewById(R.id.keybtn);
-        lockBtn = findViewById(R.id.lockbtn);
-        unlockBtn = findViewById(R.id.unlockbtn);
-        eingabeText = findViewById(R.id.eingabetxt);
-        outputText = findViewById(R.id.outputtxtx);
-        clrBtn = findViewById(R.id.clrbtn);
-        schluesselAuswahl = findViewById(R.id.schluesselauswahl);
-        eingabeLayout = findViewById(R.id.constraintLayoutout1);
-        ausgabeLayout = findViewById(R.id.constraintLayoutout);
-        var1Txt = findViewById(R.id.var1);
-        var2Txt = findViewById(R.id.var2);
-        copyLogo = findViewById(R.id.copylogo);
-        goToAccuntsbtn  =findViewById(R.id.goToAccounts);
+        MobileAds.initialize(this, "ca-app-pub-7177574010293341~7273031738");
+
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7177574010293341/7081460040");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+
+        });
+
+        keyBtn =(ImageView) findViewById(R.id.keybtn);
+        lockBtn =(ImageView) findViewById(R.id.lockbtn);
+        unlockBtn =(ImageView) findViewById(R.id.unlockbtn);
+        eingabeText = (EditText) findViewById(R.id.eingabetxt);
+        outputText = (TextView) findViewById(R.id.outputtxtx);
+        clrBtn = (Button) findViewById(R.id.clrbtn);
+        schluesselAuswahl = (Spinner) findViewById(R.id.schluesselauswahl);
+        eingabeLayout = (ConstraintLayout) findViewById(R.id.constraintLayoutout1);
+        ausgabeLayout = (ConstraintLayout) findViewById(R.id.constraintLayoutout);
+        var1Txt = (EditText) findViewById(R.id.var1);
+        var2Txt = (EditText) findViewById(R.id.var2);
+        copyLogo = (ImageView) findViewById(R.id.copylogo);
+        goToAccuntsbtn  =(ImageView) findViewById(R.id.goToAccounts);
 
 
 
@@ -78,6 +97,13 @@ MainActivity extends AppCompatActivity {
       copyLogo.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
+
+              //ad laden:
+              if (mInterstitialAd.isLoaded()) {
+                  mInterstitialAd.show();
+              } else {
+                  Toast.makeText(MainActivity.this, "Ad wurde nicht geladen!", Toast.LENGTH_SHORT).show();
+              }
 
               if(outputText.getText().toString().equals("")) {
 
@@ -339,7 +365,11 @@ MainActivity extends AppCompatActivity {
 
         }
 
-        keys[loadSharedPreferencesLogList(getApplicationContext()).size()] = "Custom";
+        int anzahlCustomKeys = loadSharedPreferencesLogList(getApplicationContext()).size();
+
+
+        keys[anzahlCustomKeys] = "Custom";
+
 
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
