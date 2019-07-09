@@ -2,23 +2,18 @@ package com.qooplite.alpay.cryptolab;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -77,6 +72,10 @@ public class VerschluesselungenAdapter extends RecyclerView.Adapter<Verschluesse
             public void onClick(View view) {
 
                 Toast.makeText(activity, data.get(verschluesselungenHolder.getAdapterPosition()).getName() + " ausgewählt", Toast.LENGTH_SHORT).show();
+
+                VerschluesselnActivity.currentVerschluesselung = data.get(verschluesselungenHolder.getAdapterPosition());
+                activity.startActivity(new Intent(activity, VerschluesselnActivity.class));
+
 
             }
         });

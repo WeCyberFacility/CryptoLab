@@ -7,11 +7,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logolaunchersquare"
-        android:label="@string/app_name"
+        android:label="CryptoLab"
         android:roundIcon="@mipmap/logolauncher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EncryptionWahl"></activity>
+        <activity android:name=".VerschluesselnActivity"></activity>
+        <activity android:name=".EncryptionWahl" />
         <activity android:name=".Launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PasswordManager" />
-        <activity android:name=".keyActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

@@ -8,9 +8,10 @@ public class Verschluesselung {
     private String beschreibung;
     private String input;
     private String output;
+    private int anzahlInputs;
 
 
-    public Verschluesselung(String id, String name, int sicherheitslevel, String beschreibung, String input, String output) {
+    public Verschluesselung(String id, String name, int sicherheitslevel, String beschreibung, String input, String output, int anzahlInputs) {
 
         this.id = id;
         this.name = name;
@@ -18,6 +19,7 @@ public class Verschluesselung {
         this.beschreibung = beschreibung;
         this.input = input;
         this.output = output;
+        this.anzahlInputs = anzahlInputs;
 
     }
 
@@ -70,5 +72,13 @@ public class Verschluesselung {
 
     public void setOutput(String output) {
         this.output = output;
+    }
+
+    public int getAnzahlInputs() {
+        return anzahlInputs;
+    }
+
+    public void setAnzahlInputs(int anzahlInputs) {
+        this.anzahlInputs = anzahlInputs;
     }
 }
